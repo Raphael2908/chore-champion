@@ -1,10 +1,14 @@
 import { createClient } from '../../utils/supabase/server';
 import AssignChoreButton from './AssignChoreButton';
+import Link from 'next/link'
+
 export default async function Home() {
   const supabase = createClient();
   const { data, error } = await supabase.from("family_chore_list").select(`chore_name, chore_score, chore_status, profiles(full_name))`);
-  const { data: children, childrenError } = await supabase.from("profiles").select(`full_name, id`);
-  console.log(error)
+  const { data: children, childrenError } = await supabase.from("profiles").select(`full_name, id`).eq('family_role', 'child');
+  if(error) {
+    console.log(error)
+  }
 
   const checklist = data.map((e) => {
     return (
@@ -25,17 +29,17 @@ export default async function Home() {
     <div className="flex flex-col bg-sky-200 h-screen px-5 py-5 gap-5 ">
      <div className='flex justify-between items-center'>
 
-      <div className="">
+      <Link href="/leaderboard" className="">
         <img
         src="assets/Trophy.svg"
-        alt="Picture of the author"
+        alt="leaderboard"
       />
-      </div>
+      </Link>
     
       <h1 className="text-4xl">Lim Family</h1>
 
 
-      <div className="flex">
+      <Link href='/chores' className="flex">
         {/* Red circle icon */}
         <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-red-400" fill="red" viewBox="0 0 24 24" stroke="currentColor">
           <circle cx="12" cy="12" r="10" />
@@ -50,14 +54,14 @@ export default async function Home() {
         <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-green-500" fill="green" viewBox="0 0 24 24" stroke="currentColor">
           <circle cx="12" cy="12" r="10" />
         </svg>
-      </div>
+      </Link>
      </div>
 
         <div className="bg-white rounded-md shadow-sm px-5 py-2">
           <h2 className="text-lg font-bold">Checklist</h2>
           {checklist}
         </div>
-        <AssignChoreButton children={children}/>
+        <AssignChoreButton className='w-full' children={children}/>
     </div>
   );
 }

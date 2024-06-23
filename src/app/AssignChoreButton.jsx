@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Swal from 'sweetalert2';
-import { SupabaseClient } from '@supabase/supabase-js';
 import axios from 'axios';
 
 const AssignChoreButton = ({children}) => {
@@ -12,7 +11,7 @@ const AssignChoreButton = ({children}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Add your form submission logic here, e.g., sending data to Supabase
-        console.log(choreName + choreScore + assignee)
+        // console.log(choreName + choreScore + assignee)
         axios.post('http://localhost:3000/api/assignChore', {
             choreName: choreName,
             choreScore: choreScore, 
@@ -22,9 +21,8 @@ const AssignChoreButton = ({children}) => {
             title: 'Chore Assigned',
             text: `Chore: ${choreName}, Score: ${choreScore}, Assignee: ${assignee}`,
             icon: 'success',
-        });
+        }).then((result) => window.location.reload());
         setShowModal(false);
-        window.location.reload()
     };
     const [choreName, setChoreName] = useState('');
     const [choreScore, setChoreScore] = useState('');
@@ -98,7 +96,7 @@ const AssignChoreButton = ({children}) => {
     <div>
       <button
         onClick={() => setShowModal(true)}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full"
         type="button"
       >
         Assign chore

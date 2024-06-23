@@ -9,7 +9,7 @@ export default async function handler( req, res ) {
     // Process a POST request
     const { error } = await supabase
     .from('family_chore_list')
-    .insert({ chore_name: req.body.choreName, chore_score: req.body.choreScore, chore_status: null, chore_user_ID: req.body.choreUserId})
+    .insert({ chore_name: req.body.choreName, chore_score: req.body.choreScore, chore_status: false, chore_user_ID: req.body.choreUserId})
     if(error) { 
       console.log(error)
       return res.status(500).json({message: "Error when posting chore"})
