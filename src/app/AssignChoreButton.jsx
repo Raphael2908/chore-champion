@@ -18,8 +18,7 @@ const AssignChoreButton = ({children}) => {
             choreUserId: assignee
         })
         Swal.fire({
-            title: 'Chore Assigned',
-            text: `Chore: ${choreName}, Score: ${choreScore}, Assignee: ${assignee}`,
+            title: 'Chore Assigned!',
             icon: 'success',
         }).then((result) => window.location.reload());
         setShowModal(false);

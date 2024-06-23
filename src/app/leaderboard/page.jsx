@@ -3,7 +3,7 @@ import { createClient } from '../../../utils/supabase/server';
 
 export default async function Leaderboard() {
     const supabase = createClient();
-    const { data, error } = await supabase.from("family_chore_list").select(`chore_score, profiles(full_name))`);
+    const { data, error } = await supabase.from("family_chore_list").select(`chore_score, profiles(full_name))`).eq('chore_status', true);
     if(error){
       console.log(error)
     }

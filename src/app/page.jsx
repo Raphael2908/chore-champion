@@ -10,6 +10,10 @@ export default async function Home() {
     console.log(error)
   }
 
+  if(childrenError) {
+    console.log(childrenError)
+  }
+
   const checklist = data.map((e) => {
     return (
       <div key={e.id} className="flex items-center gap-2 justify-between">
@@ -20,7 +24,8 @@ export default async function Home() {
               <label className='text-gray-500'>{e.profiles.full_name}</label>
             </div>
         </div>
-        <h1 className='text-green-500'>{e.chore_score}</h1>
+        {e.chore_status == true && <h1 className='text-green-500'>{e.chore_score}</h1>}
+        {e.chore_status == false && <h1 className='text-red-500'>{e.chore_score}</h1>}
       </div>
     )
   })
@@ -31,6 +36,7 @@ export default async function Home() {
 
       <Link href="/leaderboard" className="">
         <img
+        width='40'
         src="assets/Trophy.svg"
         alt="leaderboard"
       />

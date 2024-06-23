@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { createClient } from '../../../utils/supabase/server';
 import ChoreFilter from './ChoreFilter';
 
@@ -8,7 +9,16 @@ export default async function Chores() {
 
     return (
       <div className="bg-sky-200 h-screen px-5">
-        <h1 className='py-2'>Chore management</h1>
+        <div className='flex items-center'>
+        <Link href="/" className="">
+            <img
+            width={50}
+            src="../assets/Expand_left_light.svg"
+            alt="back to home"
+            />
+          </Link>
+          <h1 className='py-2'>Chore management</h1>
+        </div>
         <ChoreFilter kids={kids} chores={data}/>
       </div>
     );
